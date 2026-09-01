@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dilip & Sanjana — Wedding Command Center</title>
+  
+  <!-- Fonts & Tailwind -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: radial-gradient(circle at 10% 10%, #fff1f2 0%, #fffbeb 30%, #fdf2f8 70%, #f8fafc 100%);
+      background-attachment: fixed;
+    }
+    .font-serif-luxury {
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(254, 205, 211, 0.45);
+      box-shadow: 0 10px 30px -5px rgba(225, 29, 72, 0.05), 0 4px 10px -3px rgba(0, 0, 0, 0.03);
+    }
+    .glass-nav {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(16px);
+      border-right: 1px solid rgba(251, 207, 232, 0.5);
+    }
+    .royal-glow {
+      box-shadow: 0 0 35px -5px rgba(244, 63, 94, 0.35);
+    }
+    /* Subtle decorative mandala background pattern */
+    .bg-mandala {
+      background-image: radial-gradient(#f43f5e 0.5px, transparent 0.5px), radial-gradient(#d97706 0.5px, #fdf2f8 0.5px);
+      background-size: 30px 30px;
+      background-position: 0 0, 15px 15px;
+      opacity: 0.18;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col md:flex-row relative">
+
+  <!-- Background Texture Layer -->
+  <div class="fixed inset-0 bg-mandala pointer-events-none z-0"></div>
+
+  <!-- Ambient Light Orbs -->
+  <div class="fixed top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-rose-300/30 blur-[120px] pointer-events-none z-0"></div>
+  <div class="fixed bottom-[-10%] right-[-10%] w-[600px] h-[600px] rounded-full bg-amber-200/40 blur-[140px] pointer-events-none z-0"></div>
+
+  <!-- Sidebar -->
+  <aside class="relative z-10 w-full md:w-72 glass-nav p-6 flex flex-col justify-between shrink-0 shadow-lg md:shadow-none">
+    <div>
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-3.5 mb-8 pb-5 border-b border-rose-100">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-rose-600 via-rose-500 to-amber-500 flex items-center justify-center text-white text-2xl shadow-md shadow-rose-500/25 ring-4 ring-rose-100/70">
+          ✨
+        </div>
+        <div>
+          <h1 id="brand-couple" class="font-serif-luxury text-2xl font-bold tracking-wide text-slate-900 leading-tight">Dilip &amp; Sanjana</h1>
+          <p class="text-[10px] text-rose-600 font-extrabold uppercase tracking-widest flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span> Royal Wedding Hub
+          </p>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="space-y-1.5">
+        <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold bg-rose-600 text-white shadow-md shadow-rose-600/20 transition-all">
+          <span>📊</span> Dashboard
+        </button>
+        <button onclick="switchTab('events')" id="nav-events" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold text-slate-600 hover:bg-rose-50/80 hover:text-rose-700 transition-all">
+          <span>🪔</span> Events &amp; Venues
+        </button>
+        <button onclick="switchTab('tasks')" id="nav-tasks" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold text-slate-600 hover:bg-rose-50/80 hover:text-rose-700 transition-all">
+          <span>📋</span> Tasks &amp; Checklist
+        </button>
+        <button onclick="switchTab('budget')" id="nav-budget" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold text-slate-600 hover:bg-rose-50/80 hover:text-rose-700 transition-all">
+          <span>💰</span> Budget &amp; Expenses
+        </button>
+        <button onclick="switchTab('guests')" id="nav-guests" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold text-slate-600 hover:bg-rose-50/80 hover:text-rose-700 transition-all">
+          <span>💌</span> Guest List &amp; RSVPs
+        </button>
+      </nav>
+    </div>
+
+    <div class="pt-6 border-t border-rose-100">
+      <button onclick="editHeaderConfig()" class="w-full text-xs font-bold py-2.5 px-3 rounded-xl border border-rose-200 bg-white/70 hover:bg-rose-50 text-slate-700 shadow-sm transition">
+        ⚙️ Edit Countdown &amp; Venue
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="relative z-10 flex-1 p-6 lg:p-10 max-w-6xl w-full mx-auto space-y-6">
+    
+    <!-- Hero Live Countdown Banner -->
+    <div class="relative overflow-hidden rounded-[2rem] bg-gradient-to-r from-rose-950 via-purple-950 to-slate-950 p-7 sm:p-9 text-white royal-glow border border-rose-500/20">
+      <div class="absolute -right-12 -bottom-12 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+        <div>
+          <span class="inline-flex items-center gap-1.5 bg-gradient-to-r from-amber-400/20 to-rose-400/20 border border-amber-300/30 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-amber-300 backdrop-blur-md">
+            <span>✨</span> Next Ceremony: Haldi
+          </span>
+          <h2 id="hero-couple-title" class="font-serif-luxury text-3xl sm:text-5xl font-bold mt-2.5 tracking-tight text-white">
+            Dilip &amp; Sanjana&apos;s Wedding
+          </h2>
+          <p id="hero-venue-desc" class="text-sm text-rose-200/90 mt-1.5 flex items-center gap-1.5 font-medium">
+            📍 Grand Heritage Palace &amp; Resort, Bangalore
+          </p>
+        </div>
+
+        <!-- Timer Ticker Blocks -->
+        <div class="flex items-center gap-2.5 sm:gap-3.5 text-center">
+          <div class="bg-black/45 backdrop-blur-md border border-white/15 px-3.5 py-3 rounded-2xl min-w-[68px] shadow-lg">
+            <span id="days" class="text-2xl sm:text-3xl font-black text-amber-300 block font-mono">0</span>
+            <span class="text-[9px] uppercase font-extrabold tracking-wider text-rose-200">Days</span>
+          </div>
+          <div class="bg-black/45 backdrop-blur-md border border-white/15 px-3.5 py-3 rounded-2xl min-w-[68px] shadow-lg">
+            <span id="hours" class="text-2xl sm:text-3xl font-black text-amber-300 block font-mono">0</span>
+            <span class="text-[9px] uppercase font-extrabold tracking-wider text-rose-200">Hours</span>
+          </div>
+          <div class="bg-black/45 backdrop-blur-md border border-white/15 px-3.5 py-3 rounded-2xl min-w-[68px] shadow-lg">
+            <span id="mins" class="text-2xl sm:text-3xl font-black text-amber-300 block font-mono">0</span>
+            <span class="text-[9px] uppercase font-extrabold tracking-wider text-rose-200">Mins</span>
+          </div>
+          <div class="bg-black/45 backdrop-blur-md border border-white/15 px-3.5 py-3 rounded-2xl min-w-[68px] shadow-lg">
+            <span id="secs" class="text-2xl sm:text-3xl font-black text-amber-300 block font-mono">0</span>
+            <span class="text-[9px] uppercase font-extrabold tracking-wider text-rose-200">Secs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 1: DASHBOARD -->
+    <section id="view-dashboard" class="tab-view space-y-6">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+        <div class="glass-card p-6 rounded-3xl relative overflow-hidden">
+          <div class="w-2 h-full absolute left-0 top-0 bg-gradient-to-b from-amber-400 to-amber-600"></div>
+          <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Committed Budget</p>
+          <h3 id="dash-spent" class="text-3xl font-black text-slate-900 mt-2">₹0</h3>
+          <p class="text-xs text-amber-800 font-semibold mt-1 bg-amber-50 rounded-lg p-1.5 border border-amber-100 inline-block">Target: ₹12,00,000 – ₹13,00,000</p>
+        </div>
+        <div class="glass-card p-6 rounded-3xl relative overflow-hidden">
+          <div class="w-2 h-full absolute left-0 top-0 bg-gradient-to-b from-rose-500 to-rose-700"></div>
+          <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Tasks Checklist</p>
+          <h3 id="dash-tasks" class="text-3xl font-black text-slate-900 mt-2">0 / 0</h3>
+          <p class="text-xs text-slate-500 mt-1 font-medium">Completed preparation goals</p>
+        </div>
+        <div class="glass-card p-6 rounded-3xl relative overflow-hidden">
+          <div class="w-2 h-full absolute left-0 top-0 bg-gradient-to-b from-purple-500 to-indigo-600"></div>
+          <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Confirmed Guests</p>
+          <h3 id="dash-guests" class="text-3xl font-black text-slate-900 mt-2">0</h3>
+          <p class="text-xs text-slate-500 mt-1 font-medium">Attending celebrations</p>
+        </div>
+      </div>
+
+      <div class="glass-card p-7 rounded-3xl">
+        <div class="flex justify-between items-center mb-5">
+          <div>
+            <h3 class="font-serif-luxury text-2xl font-bold text-slate-900">Wedding Functions Schedule</h3>
+            <p class="text-xs text-slate-500 font-medium">January 22, 23 &amp; 24, 2027</p>
+          </div>
+          <button onclick="switchTab('events')" class="text-xs font-bold text-rose-700 bg-rose-50 px-3.5 py-1.5 rounded-xl border border-rose-200 hover:bg-rose-100 transition">
+            Manage Venues →
+          </button>
+        </div>
+        <div id="dash-events-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+      </div>
+    </section>
+
+    <!-- TAB 2: EVENTS & VENUES -->
+    <section id="view-events" class="tab-view hidden space-y-4">
+      <div class="flex justify-between items-center">
+        <h3 class="font-serif-luxury text-3xl font-bold text-slate-900">Ceremonies &amp; Functions</h3>
+      </div>
+      <div id="events-list" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
+    </section>
+
+    <!-- TAB 3: TASKS -->
+    <section id="view-tasks" class="tab-view hidden glass-card rounded-3xl p-7 space-y-4">
+      <div class="flex justify-between items-center pb-3 border-b border-rose-100">
+        <h3 class="font-serif-luxury text-2xl font-bold text-slate-900">Task Checklist</h3>
+        <button onclick="promptAddTask()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-rose-600 to-rose-700 text-white font-bold text-xs shadow-md shadow-rose-600/20 hover:brightness-110">+ Add Task</button>
+      </div>
+      <div id="tasks-list" class="divide-y divide-rose-100/60"></div>
+    </section>
+
+    <!-- TAB 4: BUDGET -->
+    <section id="view-budget" class="tab-view hidden glass-card rounded-3xl p-7 space-y-4">
+      <div class="flex justify-between items-center pb-3 border-b border-rose-100">
+        <div>
+          <h3 class="font-serif-luxury text-2xl font-bold text-slate-900">Budget &amp; Expense Disbursements</h3>
+          <p class="text-xs text-slate-500 font-medium">Target Cap: ₹12,00,000 – ₹13,00,000</p>
+        </div>
+        <button onclick="promptAddExpense()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-rose-600 to-rose-700 text-white font-bold text-xs shadow-md shadow-rose-600/20 hover:brightness-110">+ Add Expense</button>
+      </div>
+      <div id="budget-list" class="divide-y divide-rose-100/60"></div>
+    </section>
+
+    <!-- TAB 5: GUESTS -->
+    <section id="view-guests" class="tab-view hidden glass-card rounded-3xl p-7 space-y-4">
+      <div class="flex justify-between items-center pb-3 border-b border-rose-100">
+        <h3 class="font-serif-luxury text-2xl font-bold text-slate-900">Guest List &amp; Accommodation</h3>
+        <button onclick="promptAddGuest()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-rose-600 to-rose-700 text-white font-bold text-xs shadow-md shadow-rose-600/20 hover:brightness-110">+ Add Guest</button>
+      </div>
+      <div id="guests-list" class="divide-y divide-rose-100/60"></div>
+    </section>
+
+  </main>
+
+  <script>
+    let appData = null;
+
+    function formatINR(val) {
+      return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(val);
+    }
+
+    async function fetchState() {
+      const res = await fetch('/api/data');
+      appData = await res.json();
+      render();
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-view').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.className = "nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold text-slate-600 hover:bg-rose-50/80 hover:text-rose-700 transition-all";
+      });
+      document.getElementById('view-' + tabId).classList.remove('hidden');
+      const activeNav = document.getElementById('nav-' + tabId);
+      activeNav.className = "nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold bg-rose-600 text-white shadow-md shadow-rose-600/20 transition-all";
+    }
+
+    function startTimer() {
+      setInterval(() => {
+        if (!appData || !appData.config) return;
+        const diff = new Date(appData.config.targetDate) - new Date();
+        if (diff > 0) {
+          document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+          document.getElementById('hours').innerText = Math.floor((diff / (1000 * 60 * 60)) % 24);
+          document.getElementById('mins').innerText = Math.floor((diff / 1000 / 60) % 60);
+          document.getElementById('secs').innerText = Math.floor((diff / 1000) % 60);
+        }
+      }, 1000);
+    }
+
+    async function editHeaderConfig() {
+      const couple = prompt("Edit Couple Names:", appData.config.couple);
+      const venue = prompt("Edit Main Venue / City:", appData.config.venue);
+      const targetDate = prompt("Edit Countdown Target (YYYY-MM-DDTHH:MM):", appData.config.targetDate);
+      if (couple && venue && targetDate) {
+        await fetch('/api/config', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ couple, venue, targetDate })
+        });
+        fetchState();
+      }
+    }
+
+    async function editEventDetails(id) {
+      const ev = appData.events.find(e => e.id === id);
+      if (!ev) return;
+      const name = prompt("Function Name:", ev.name);
+      const date = prompt("Date:", ev.date);
+      const time = prompt("Timing:", ev.time);
+      const venue = prompt("Venue / Place:", ev.venue);
+      const dressCode = prompt("Dress Code:", ev.dressCode);
+
+      if (name && venue) {
+        await fetch(`/api/events/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, date, time, venue, dressCode })
+        });
+        fetchState();
+      }
+    }
+
+    async function promptAddTask() {
+      const title = prompt("Task Title:");
+      const assignedTo = prompt("Assign To (Name):") || "Family";
+      if (title) {
+        await fetch('/api/tasks', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title, assignedTo, category: 'General', priority: 'MEDIUM', status: 'PENDING', dueDate: '2027-01-15' })
+        });
+        fetchState();
+      }
+    }
+
+    async function toggleTask(id) {
+      await fetch(`/api/tasks/${id}/toggle`, { method: 'PUT' });
+      fetchState();
+    }
+
+    async function deleteTask(id) {
+      if (confirm("Delete this task?")) {
+        await fetch(`/api/tasks/${id}`, { method: 'DELETE' });
+        fetchState();
+      }
+    }
+
+    async function promptAddExpense() {
+      const title = prompt("Expense Description:");
+      const amount = prompt("Amount (₹):");
+      if (title && amount) {
+        await fetch('/api/budget', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title, amount: parseFloat(amount), paidAmount: 0, category: 'General', status: 'UNPAID' })
+        });
+        fetchState();
+      }
+    }
+
+    async function deleteExpense(id) {
+      if (confirm("Delete this expense?")) {
+        await fetch(`/api/budget/${id}`, { method: 'DELETE' });
+        fetchState();
+      }
+    }
+
+    async function promptAddGuest() {
+      const name = prompt("Guest Name:");
+      const side = prompt("Side (Bride / Groom):") || "Bride";
+      if (name) {
+        await fetch('/api/guests', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, side, category: 'Close Family', rsvp: 'ATTENDING', diet: 'Veg', hotelRoom: 'Grand Resort' })
+        });
+        fetchState();
+      }
+    }
+
+    async function deleteGuest(id) {
+      if (confirm("Delete this guest?")) {
+        await fetch(`/api/guests/${id}`, { method: 'DELETE' });
+        fetchState();
+      }
+    }
+
+    function render() {
+      if (!appData) return;
+      document.getElementById('brand-couple').innerText = appData.config.couple;
+      document.getElementById('hero-couple-title').innerText = appData.config.couple + "'s Wedding";
+      document.getElementById('hero-venue-desc').innerText = "📍 " + appData.config.venue;
+
+      const totalSpent = appData.budget.reduce((acc, b) => acc + Number(b.amount), 0);
+      const completedTasks = appData.tasks.filter(t => t.status === 'COMPLETED').length;
+      document.getElementById('dash-spent').innerText = formatINR(totalSpent);
+      document.getElementById('dash-tasks').innerText = `${completedTasks} / ${appData.tasks.length}`;
+      document.getElementById('dash-guests').innerText = appData.guests.length;
+
+      document.getElementById('dash-events-grid').innerHTML = appData.events.map(ev => `
+        <div class="p-4 rounded-2xl bg-white/70 border border-rose-100 hover:border-rose-300 transition space-y-1.5 shadow-sm">
+          <span class="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-rose-100 text-rose-800 border border-rose-200">${ev.date}</span>
+          <h4 class="font-bold text-slate-900 text-sm mt-1">${ev.name}</h4>
+          <p class="text-xs text-slate-600">📍 <strong>${ev.venue}</strong></p>
+          <p class="text-xs text-slate-500">⏰ ${ev.time}</p>
+          <p class="text-[11px] font-semibold text-rose-700 pt-0.5">👗 ${ev.dressCode}</p>
+        </div>
+      `).join('');
+
+      document.getElementById('events-list').innerHTML = appData.events.map(ev => `
+        <div class="glass-card p-6 rounded-3xl space-y-3.5">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="text-[11px] font-extrabold text-rose-600 uppercase tracking-wider bg-rose-50 px-2.5 py-1 rounded-md">${ev.date}</span>
+              <h4 class="font-serif-luxury text-2xl font-bold text-slate-900 mt-2">${ev.name}</h4>
+            </div>
+            <button onclick="editEventDetails('${ev.id}')" class="text-xs bg-white hover:bg-rose-50 px-3 py-1.5 rounded-xl font-bold border border-rose-200 text-slate-700 shadow-sm transition">
+              ✏️ Edit Place
+            </button>
+          </div>
+          <div class="text-xs text-slate-600 border-t border-rose-100 pt-3 space-y-1.5">
+            <p>📍 <strong>Venue:</strong> ${ev.venue}</p>
+            <p>⏰ <strong>Time:</strong> ${ev.time}</p>
+            <p>👗 <strong>Dress Code:</strong> ${ev.dressCode}</p>
+          </div>
+        </div>
+      `).join('');
+
+      document.getElementById('tasks-list').innerHTML = appData.tasks.map(t => `
+        <div class="py-3.5 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <input type="checkbox" ${t.status === 'COMPLETED' ? 'checked' : ''} onchange="toggleTask('${t.id}')" class="w-4 h-4 text-rose-600 rounded border-rose-300 focus:ring-rose-500 cursor-pointer">
+            <div>
+              <p class="text-sm font-bold ${t.status === 'COMPLETED' ? 'line-through text-slate-400' : 'text-slate-800'}">${t.title}</p>
+              <p class="text-xs text-slate-500">👤 ${t.assignedTo} • Due: ${t.dueDate}</p>
+            </div>
+          </div>
+          <button onclick="deleteTask('${t.id}')" class="text-slate-400 hover:text-red-600 text-xs font-bold px-2 py-1">✕</button>
+        </div>
+      `).join('');
+
+      document.getElementById('budget-list').innerHTML = appData.budget.map(b => `
+        <div class="py-3.5 flex items-center justify-between">
+          <div>
+            <p class="text-sm font-bold text-slate-900">${b.title}</p>
+            <p class="text-xs text-slate-500">${b.category}</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="text-right">
+              <p class="text-sm font-bold text-slate-900">${formatINR(b.amount)}</p>
+              <p class="text-[11px] text-emerald-600 font-semibold">Paid: ${formatINR(b.paidAmount)}</p>
+            </div>
+            <button onclick="deleteExpense('${b.id}')" class="text-slate-400 hover:text-red-600 text-xs font-bold px-2 py-1">✕</button>
+          </div>
+        </div>
+      `).join('');
+
+      document.getElementById('guests-list').innerHTML = appData.guests.map(g => `
+        <div class="py-3.5 flex items-center justify-between">
+          <div>
+            <p class="text-sm font-bold text-slate-900">${g.name}</p>
+            <p class="text-xs text-slate-500">Room: ${g.hotelRoom} • Diet: ${g.diet}</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-[11px] font-bold px-3 py-1 rounded-full bg-rose-100/80 text-rose-700 border border-rose-200">${g.side} Side</span>
+            <button onclick="deleteGuest('${g.id}')" class="text-slate-400 hover:text-red-600 text-xs font-bold px-2 py-1">✕</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    fetchState();
+    startTimer();
+  </script>
+</body>
+</html>
+
+
+
